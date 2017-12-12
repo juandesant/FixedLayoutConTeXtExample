@@ -1,0 +1,78 @@
+\setuplayout  
+  [topspace=1\lineheight,
+   top=1\lineheight,
+   topdistance=0cm,
+   header=1.25in,
+   headerdistance=0cm,
+   height=fit,
+   footerdistance=0cm,
+   footer=0.5in,
+   bottomspace=0.25\lineheight,
+   bottom=0.25\lineheight,
+   bottomdistance=0cm,
+   backspace=0.75in,
+   width=fit,
+   cutspace=0.125in,
+ ]
+
+\setupbackgrounds[text][text][frame=on]
+
+% Header
+\setuppagenumbering[location=]
+\setupheadertexts[\setups{header}]
+
+% Left margin
+\definelayer [leftlayer] 
+             [width=\paperwidth,
+              height=\paperheight,
+              x=0cm,
+              y=1cm]
+
+\defineframed[margincallout]
+             [height=\dimexpr\layoutparameter{backspace}\relax,                        
+              width=\dimexpr(\textheight+\layoutparameter{header})/2\relax,
+              align={middle,middle},
+              foregroundstyle=\tfc,
+              frame=off]
+
+\setlayer        [leftlayer] [preset=leftbottom] 
+                 {\rotate{\margincallout[rightframe=on]{Rotated text callout 1} }}
+
+\setlayer        [leftlayer] [preset=lefttop,y=2.5mm]
+                 {\rotate{\margincallout {Rotated text callout 2} }}
+
+\setupbackgrounds[page][background=leftlayer]
+
+% Actual content
+\startsetups header
+  \setupTABLE[each][each][height=\dimexpr\layoutparameter{header}/4\relax,
+                          width=0.25\textwidth,
+                          align={middle,middle},
+                          frame=on]
+  \bTABLE
+    \bTR
+      \bTD[nr=3]      \fakewords {5} {10} \eTD
+      \bTD[nr=3,nc=2] \fakewords {5} {10} \eTD
+      \bTD \fakewords{1}{3}               \eTD
+    \eTR
+    \bTR
+       \bTD \fakewords{1}{3} \eTD
+    \eTR
+    \bTR
+      \bTD \fakewords{1}{3} \eTD
+    \eTR
+    \bTR
+      \bTD \fakewords{1}{2} \eTD
+      \bTD \fakewords{1}{2} \eTD
+      \bTD \fakewords{1}{2} \eTD
+      \bTD \fakewords{1}{2} \eTD
+    \eTR
+  \eTABLE
+\stopsetups
+
+
+% For dummy text
+\usemodule[visual]
+\starttext
+Page Content
+\stoptext
